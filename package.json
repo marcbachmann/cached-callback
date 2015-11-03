@@ -1,0 +1,14 @@
+{
+  "name": "cached-callback",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && node test"
+  },
+  "author": "Marc Bachmann <marc.brookman@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "standard": "^5.3.1"
+  }
+}
