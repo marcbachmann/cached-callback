@@ -18,7 +18,7 @@ getter('test.html', function (err, data) {
 var cached = require('cached-callback') // returns a function
 
 
-### cached(function (id, args.., callback) { callback() })
+### cached(function (id, args.., callback) { callback() }, [ttl])
 Accepts a getter function as parameter.
 The function should accept at least two arguments.
 The first one should be an identifier, this should be a number or a string

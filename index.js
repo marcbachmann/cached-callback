@@ -1,16 +1,27 @@
-module.exports = function debounce (getter, useCache) {
+module.exports = function debounce (getter, cacher) {
   var map = {}
+  var cache = (typeof cacher === 'object') ? cacher : cacher ? new Cache() : false
 
   return function collectCallbacks (id, __argsAndCallback) {
     var args = toArray(arguments)
     var callback = args.pop()
     if (typeof callback !== 'function') throw new Error('The last argument has to be a callback.')
 
+    var cached
+    if (cache && (cached = cache.get(id))) {
+      invoke(callback, cached, cached.length)
+      return
+    }
+
     var callbacks = map[id]
-    if (callbacks && callbacks.length) return callbacks.push(callback)
+    if (callbacks && callbacks.length) {
+      callbacks.push(callback)
+      return
+    }
     callbacks = map[id] = [callback]
 
     args.push(function getterCallback () {
+      if (cache) cache.set(id, arguments)
       delete map[id]
       var argumentLength = arguments.length
       for (var i = 0; i < callbacks.length; i++) {
@@ -18,7 +29,7 @@ module.exports = function debounce (getter, useCache) {
       }
     })
 
-    getter.apply(null, args)
+    invoke(getter, args, args.length)
   }
 }
 
@@ -38,4 +49,16 @@ function invoke (cb, a, length) {
     case 3: cb(a[0], a[1], a[2], a[3]); break
     default: cb.apply(null, a)
   }
+}
+
+function Cache () {
+  this.values = {}
+}
+
+Cache.prototype.get = function (key) {
+  return this.values[key]
+}
+
+Cache.prototype.set = function (key, args) {
+  this.values[key] = args
 }

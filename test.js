@@ -8,7 +8,7 @@ var executions = 0
 var get = debounce(otherGetter)
 function otherGetter (id, callback) {
   executions += 1
-  setTimeout(function () { callback('arg1', 'arg2') }, 1000)
+  setTimeout(function () { callback('arg1', 'arg2') }, 1)
 }
 
 var multi = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -30,7 +30,7 @@ setTimeout(function () {
       assert.equal(arg2, 'arg2')
     })
   })
-}, 2000)
+}, 10)
 
 // All arguments get passed to the getter
 var second = debounce(function (arg1, arg2, arg3, callback) {
@@ -47,3 +47,27 @@ second('a', 'b', 'c', callback)
 var third = debounce(function (a, cb) {})
 assert.throws(function () { third('a', 'b') }, /The last argument has to be a callback/)
 assert.doesNotThrow(function () { third('a', callback) })
+
+//
+// Check cache
+var i = 0
+var cached = debounce(function (a, cb) {
+  cb(null, i++)
+}, true)
+
+cached(1, function (err, val) {
+  if (err) throw err
+  assert.equal(val, 0)
+})
+
+// second time should still return cached result
+setTimeout(function () {
+  cached(1, function (err, val) {
+    if (err) throw err
+    assert.equal(val, 0)
+  })
+}, 10)
+
+process.on('exit', function (exitCode) {
+  if (!exitCode) console.log('All tests succeeded.')
+})
