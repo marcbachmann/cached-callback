@@ -1,10 +1,10 @@
 /* global define */
 (function (root) {
-  function debounce (getter, cacher) {
+  function cachedCallback (getter, cacher) {
     var map = {}
     var cache = (typeof cacher === 'object') ? cacher : cacher ? memoryCache() : false
 
-    return function collectCallbacks (id, __argsAndCallback) {
+    return function collect (id, __argsAndCallback) {
       var args = toArray(arguments)
       var callback = args.pop()
       if (typeof callback !== 'function') throw new Error('The last argument has to be a callback.')
@@ -60,10 +60,10 @@
   }
 
   if (typeof exports === 'object') {
-    module.exports = debounce
+    module.exports = cachedCallback
   } else if (typeof define === 'function' && define.amd) {
-    define(debounce)
+    define(cachedCallback)
   } else {
-    root.cachedCallback = debounce
+    root.cachedCallback = cachedCallback
   }
 })(this)
