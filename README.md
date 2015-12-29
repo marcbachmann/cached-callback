@@ -59,3 +59,13 @@ var custom = cachedCallback(function (id, callback) {
   request('http://example.com/'+id, callback)
 }, setterAndGetter)
 ```
+
+
+## Why don't I use `async.memoize`?
+
+I ended up writing similar code like this module tons of times and didn't find `async.memoize` when I needed it.
+IMO asyncjs also got too large and could benefit from some modularization.
+
+The advantage of this module is that you can hook up a custom cache method.
+E.g. a lru cache like https://www.npmjs.com/package/lru-cache
+
