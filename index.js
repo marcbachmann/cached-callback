@@ -40,9 +40,10 @@
   function invoke (cb, a, length) {
     switch (length) {
       case 0: cb(); break
-      case 1: cb(a[0], a[1]); break
-      case 2: cb(a[0], a[1], a[2]); break
-      case 3: cb(a[0], a[1], a[2], a[3]); break
+      case 1: cb(a[0]); break
+      case 2: cb(a[0], a[1]); break
+      case 3: cb(a[0], a[1], a[2]); break
+      case 4: cb(a[0], a[1], a[2], a[3]); break
       default: cb.apply(null, a)
     }
   }
