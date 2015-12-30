@@ -40,9 +40,10 @@
   function invoke (cb, a, length) {
     switch (length) {
       case 0: cb(); break
-      case 1: cb(a[0], a[1]); break
-      case 2: cb(a[0], a[1], a[2]); break
-      case 3: cb(a[0], a[1], a[2], a[3]); break
+      case 1: cb(a[0]); break
+      case 2: cb(a[0], a[1]); break
+      case 3: cb(a[0], a[1], a[2]); break
+      case 4: cb(a[0], a[1], a[2], a[3]); break
       default: cb.apply(null, a)
     }
   }
@@ -56,6 +57,13 @@
       set: function (key, args) {
         values[key] = args
       }
+    }
+  }
+
+  cachedCallback.cache = function configureCache (cacher) {
+    if (typeof cacher === 'undefined') cacher = true
+    return function cachedCallbackWithCache (getter) {
+      return cachedCallback(getter, cacher)
     }
   }
 

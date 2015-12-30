@@ -48,6 +48,18 @@ var third = debounce(function (a, cb) {})
 assert.throws(function () { third('a', 'b') }, /The last argument has to be a callback/)
 assert.doesNotThrow(function () { third('a', callback) })
 
+// test debounce when no key is used
+var called = 0
+var without = debounce(function (cb) {
+  setTimeout(function () { cb(++called) }, 1)
+})
+
+without(function (val) { assert.equal(val, 1) })
+without(function (val) { assert.equal(val, 1) })
+setTimeout(function () {
+  without(function (args) { assert.equal(args, 2) })
+}, 2)
+
 //
 // Check cache
 var i = 0
@@ -67,6 +79,20 @@ setTimeout(function () {
     assert.equal(val, 0)
   })
 }, 10)
+
+// test cache setter cachedCallback.cache(true)
+// test caching when no key is passed
+var cachedCallback = require('./').cache(true)
+var times = 0
+var persistent = cachedCallback(function (cb) {
+  setTimeout(function () { cb(++times) }, 1)
+})
+
+persistent(function (val) { assert.equal(val, 1) })
+persistent(function (val) { assert.equal(val, 1) })
+setTimeout(function () {
+  persistent(function (val) { assert.equal(val, 1) })
+}, 2)
 
 process.on('exit', function (exitCode) {
   if (!exitCode) console.log('All tests succeeded.')

@@ -40,6 +40,14 @@ setTimeout(function () {
 }, 10000)
 ```
 
+The second `cache` argument is also exposed with `.cache()`
+```js
+var cached = require('cached-callback').cache()
+var get = cached(function (id, callback) {
+  request('http://example.com/'+id, callback)
+}
+```
+
 ### Custom caching method
 Caches the result with a custom caching method.
 This example caches the result for 20 seconds.
