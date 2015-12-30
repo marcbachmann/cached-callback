@@ -60,6 +60,13 @@
     }
   }
 
+  cachedCallback.cache = function configureCache (cacher) {
+    if (typeof cacher === 'undefined') cacher = true
+    return function cachedCallbackWithCache (getter) {
+      return cachedCallback(getter, cacher)
+    }
+  }
+
   if (typeof exports === 'object') {
     module.exports = cachedCallback
   } else if (typeof define === 'function' && define.amd) {
