@@ -1,8 +1,15 @@
 {
   "name": "cached-callback",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "cached-callback caches arguments returned from an earlier execution and passes them to a callback passed in",
-  "keywords": ["callback", "memoize", "debounce", "arguments", "cache", "invoke"],
+  "keywords": [
+    "callback",
+    "memoize",
+    "debounce",
+    "arguments",
+    "cache",
+    "invoke"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "standard && node test",
