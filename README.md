@@ -1,5 +1,7 @@
 # cached-callback
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/marcbachmann/cached-callback.svg)](https://greenkeeper.io/)
+
 cached-callback caches arguments returned from an earlier execution and passes them to a callback passed in
 
 
