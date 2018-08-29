@@ -19,7 +19,7 @@
   "author": "Marc Bachmann <marc.brookman@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "standard": "^11.0.0"
+    "standard": "^12.0.0"
   },
   "repository": {
     "type": "git",
