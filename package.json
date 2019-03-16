@@ -2,6 +2,9 @@
   "name": "cached-callback",
   "version": "2.1.1",
   "description": "cached-callback caches arguments returned from an earlier execution and passes them to a callback passed in",
+  "engines": {
+    "node": ">=8"
+  },
   "keywords": [
     "callback",
     "memoize",
@@ -12,15 +15,12 @@
   ],
   "main": "index.js",
   "scripts": {
-    "test": "standard && node test",
+    "test": "node test",
     "preversion": "npm test",
     "afterversion": "npm publish"
   },
   "author": "Marc Bachmann <marc.brookman@gmail.com>",
   "license": "ISC",
-  "devDependencies": {
-    "standard": "^11.0.0"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/marcbachmann/cached-callback.git"
@@ -28,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/marcbachmann/cached-callback/issues"
   },
-  "homepage": "https://github.com/marcbachmann/cached-callback#readme"
+  "homepage": "https://github.com/marcbachmann/cached-callback#readme",
+  "release": {
+    "extends": "@livingdocs/semantic-release-presets/npm-github"
+  }
 }
