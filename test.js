@@ -1,17 +1,17 @@
-var assert = require('assert')
-var debounce = require('./')
+const assert = require('assert')
+const debounce = require('./')
 
 // A getter only gets executed once
 // It collects all callbacks and invokes them
 // after the first callback got executed
-var executions = 0
-var get = debounce(otherGetter)
+let executions = 0
+const get = debounce(otherGetter)
 function otherGetter (id, callback) {
   executions += 1
   setTimeout(function () { callback('arg1', 'arg2') }, 1)
 }
 
-var multi = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const multi = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 multi.forEach(function () {
   get(1, function (arg1, arg2) {
     assert.equal(executions, 1)
@@ -33,7 +33,7 @@ setTimeout(function () {
 }, 10)
 
 // All arguments get passed to the getter
-var second = debounce(function (arg1, arg2, arg3, callback) {
+const second = debounce(function (arg1, arg2, arg3, callback) {
   assert.equal(arg1, 'a')
   assert.equal(arg2, 'b')
   assert.equal(arg3, 'c')
@@ -44,13 +44,13 @@ function callback () {}
 second('a', 'b', 'c', callback)
 
 // The last argument has to be a callback
-var third = debounce(function (a, cb) {})
+const third = debounce(function (a, cb) {})
 assert.throws(function () { third('a', 'b') }, /The last argument has to be a callback/)
 assert.doesNotThrow(function () { third('a', callback) })
 
 // test debounce when no key is used
-var called = 0
-var without = debounce(function (cb) {
+let called = 0
+const without = debounce(function (cb) {
   setTimeout(function () { cb(++called) }, 1)
 })
 
@@ -62,8 +62,8 @@ setTimeout(function () {
 
 //
 // Check cache
-var i = 0
-var cached = debounce(function (a, cb) {
+let i = 0
+const cached = debounce(function (a, cb) {
   cb(null, i++)
 }, true)
 
@@ -82,9 +82,9 @@ setTimeout(function () {
 
 // test cache setter cachedCallback.cache(true)
 // test caching when no key is passed
-var cachedCallback = require('./').cache(true)
-var times = 0
-var persistent = cachedCallback(function (cb) {
+const cachedCallback = require('./').cache(true)
+let times = 0
+const persistent = cachedCallback(function (cb) {
   setTimeout(function () { cb(++times) }, 1)
 })
 
@@ -95,5 +95,5 @@ setTimeout(function () {
 }, 2)
 
 process.on('exit', function (exitCode) {
-  if (!exitCode) console.log('All tests succeeded.')
+  if (!exitCode) console.log('All tests succeeded.') // eslint-disable-line no-console
 })
